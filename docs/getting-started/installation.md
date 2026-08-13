@@ -4,37 +4,17 @@ aliases:
   - "setting up your GitHub repository"
 ---
 
-This page walks you through the full Quartz setup: from getting the source code to previewing your site locally, then pushing it to GitHub.
+First, make sure you have Quartz [[dev/site/garden/docs/getting-started/index#🪴 Get Started|cloned and setup locally]].
 
-## 1. Get Quartz
-
-There are two ways to get started. Pick whichever you prefer:
-
-### Option A: Use the GitHub Template (Recommended)
-
-> [!tip] Why this option?
-> Using the template creates your own repository in one click — no need to reconfigure Git remotes later.
-
-1. Go to the [Quartz repository](https://github.com/jackyzha0/quartz) and click **Use this template** → **Create a new repository**
-2. Give your repository a name (e.g. `quartz`, `notes`, `garden`), choose public or private, then click **Create repository**
-3. Clone **your new repository** and enter the folder:
-
-```bash
-git clone https://github.com/<your-username>/<your-repo>.git
-cd <your-repo>
-```
-
-### Option B: Clone Directly
-
-If you don't use GitHub or prefer a manual setup:
+<<<<<<< HEAD
+Then, create a new repository on GitHub.com. Do **not** initialize the new repository with `README`, license, or `gitignore` files.
+=======
+## 1. Clone Quartz
 
 ```bash
 git clone https://github.com/jackyzha0/quartz.git
 cd quartz
 ```
-
-> [!note]
-> With this option, you'll need to [[#Connect Your Local Clone|point the `origin` remote]] to your own repository later when you're ready to publish.
 
 ## 2. Install Dependencies
 
@@ -101,47 +81,58 @@ At this point you can [[authoring-content|start writing content]] in the `conten
 
 ## Setting Up Your GitHub Repository
 
-> [!note]
-> If you used **Option A** (GitHub Template) in step 1, your repository already exists and `origin` is already set. You can skip straight to [[#Push Your Site]].
-
-To publish your site, you'll need your own GitHub repository. This section is for **Option B** (direct clone) users.
+To publish your site, you'll need your own GitHub repository.
 
 ### Create the Repository
 
-Create a new repository on [GitHub.com](https://github.com/new). Do **not** initialize it with a README, license, or `.gitignore` — Quartz already includes these files, and duplicating them will cause merge conflicts on your first push.
+Create a new repository on [GitHub.com](https://github.com/new). Do **not** initialize it with a README, license, or `.gitignore` — the Quartz clone already has these.
+>>>>>>> 9737bce7095f93c9fb41700449505d963a6b2bb8
 
 ![[github-init-repo-options.png]]
 
-Copy the repository URL from the Quick Setup page:
+At the top of your repository on GitHub.com's Quick Setup page, click the clipboard to copy the remote repository URL.
 
 ![[github-quick-setup.png]]
 
-### Connect Your Local Clone
-
-Point your local Quartz at your new repository:
+In your terminal of choice, navigate to the root of your Quartz folder. Then, run the following commands, replacing `REMOTE-URL` with the URL you just copied from the previous step.
 
 ```bash
-# Check current remotes
+# list all the repositories that are tracked
 git remote -v
 
-# Point origin to your repository
+# if the origin doesn't match your own repository, set your repository as the origin
 git remote set-url origin REMOTE-URL
+
+# if you don't have upstream as a remote, add it so updates work
+git remote add upstream https://github.com/jackyzha0/quartz.git
 ```
 
-> [!tip]
-> You don't need to add an `upstream` remote manually — `npx quartz create` already configured it for you. The upstream remote is used by `npx quartz upgrade` to pull in future Quartz updates.
-
-### Push Your Site
+Then, you can sync the content to upload it to your repository. This is a helper command that will do the initial push of your content to your repository.
 
 ```bash
 npx quartz sync --no-pull
 ```
 
-This commits your content and pushes everything to your repository. For subsequent updates, just run:
+> [!warning]- `fatal: --[no-]autostash option is only valid with --rebase`
+> You may have an outdated version of `git`. Updating `git` should fix this issue.
 
-```bash
-npx quartz sync
-```
+> [!warning]- `fatal: The remote end hung up unexpectedly`
+> It might be due to Git's default buffer size. You can fix it by increasing the buffer with this command:
+>
+> ```bash
+> git config http.postBuffer 524288000
+> ```
+
+In future updates, you can simply run `npx quartz sync` every time you want to push updates to your repository.
+
+> [!tip] First-time plugin install on a fresh clone
+> The Quartz template ships with a `quartz.lock.json` that pins community plugins to specific commits. On a brand-new clone those pins may be older than the plugins' current dependency versions, which can cause a handful of plugins to fail to build on first install. If you hit build errors during initial setup, run:
+>
+> ```bash
+> npx quartz plugin install --latest
+> ```
+>
+> This refreshes every plugin to the latest commit on its default branch and rewrites `quartz.lock.json`. See [[troubleshooting#Plugins fail to build on a fresh clone]] for details.
 
 > [!hint] Flags and options
 > For full help options, you can run `npx quartz sync --help`.
@@ -153,9 +144,3 @@ npx quartz sync
 > - `--commit` or `--no-commit`: whether to make a `git` commit for your changes
 > - `--push` or `--no-push`: whether to push updates to your GitHub fork of Quartz
 > - `--pull` or `--no-pull`: whether to try and pull in any updates from your GitHub fork (i.e. from other devices) before pushing
-
-## Next Steps
-
-- **[[authoring-content|Authoring Content]]** — Write and organize your notes
-- **[[hosting|Hosting]]** — Deploy your site to GitHub Pages, Cloudflare, Netlify, or Vercel
-- **[[configuration|Configuration]]** — Customize your site's appearance and behavior

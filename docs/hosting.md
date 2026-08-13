@@ -7,7 +7,7 @@ Quartz effectively turns your Markdown files and other resources into a bundle o
 However, if you'd like to publish your site to the world, you need a way to host it online. This guide will detail how to deploy with common hosting providers but any service that allows you to deploy static HTML should work as well.
 
 > [!warning]
-> The rest of this guide assumes that you've already created your own GitHub repository for Quartz. If you haven't already, follow the [[installation#Setting Up Your GitHub Repository|GitHub repository setup]] section of the installation guide.
+> The rest of this guide assumes that you've already created your own GitHub repository for Quartz. If you haven't already, [[setting up your GitHub repository|make sure you do so]].
 
 > [!hint]
 > Some Quartz features (like [[RSS Feed]] and sitemap generation) require `baseUrl` to be configured properly in your [[configuration]] to work properly. Make sure you set this before deploying!
@@ -134,11 +134,7 @@ Here's how to add a custom domain to your GitHub pages deployment.
      - `185.199.111.153`
    - If you are using a subdomain, navigate to your DNS provider and create a `CNAME` record that points your subdomain to the default domain for your site. For example, if you want to use the subdomain `quartz.example.com` for your user site, create a `CNAME` record that points `quartz.example.com` to `<github-username>.github.io`.
 
-![[dns records.png]]_The above shows a screenshot of Google Domains configured for both `jzhao.xyz`
-
-(an apex domain) and `quartz.jzhao.xyz`
-
-(a subdomain)._
+![[dns records.png]]_The above shows a screenshot of Google Domains configured for both `jzhao.xyz` (an apex domain) and `quartz.jzhao.xyz` (a subdomain)._
 
 See the [GitHub documentation](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site#configuring-a-subdomain) for more detail about how to setup your own custom domain with GitHub Pages.
 
