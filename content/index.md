@@ -12,8 +12,6 @@ Author: liminal-garden
 jardín digital de exploración creativa [[manifesto-liminal|𖦹꩜಄]]
 un espacio para cultivar las semillas de mis proyectos e ideas
 
-test
-
 > [!cards|5 background-color-black no-title]
 > **[[texto]]**![cover|banner+small cover center](https://i.pinimg.com/originals/8d/2f/55/8d2f55865723befbeacc85ae620b333f.gif)**[[tags/texto|☾]]**
  >
